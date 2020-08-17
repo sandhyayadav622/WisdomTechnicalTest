@@ -19,11 +19,8 @@ enum CMSEndpoint {
     }
 
     static func getENVEndPoint() -> String {
-        var url = "https://api.themoviedb.org/3/movie/"
-//        #if DEVELOPMENT
-//         url = "https://api.themoviedb.org/3/movie/"
-//     
-//        #endif
+        var url = "https://picsum.photos/v2/"
+
         return url
     }
 }

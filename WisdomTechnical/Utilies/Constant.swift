@@ -6,7 +6,4 @@
 //
 
 import Foundation
-     let moviDetailsIdentifier = "MovieDetailsVC"
-    let apiKey = "891bc00afa28bddc4cc7562a44ee5392"
-    let language =  "en-US"
-    var page = 1
+    

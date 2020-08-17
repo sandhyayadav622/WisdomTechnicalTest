@@ -82,10 +82,11 @@ extension ViewController {
         CustomLoader.instance.showLoaderView()
         let networkManager =  NetworkManager<APIEndPoint, ResponseModel >()
        
-        networkManager.getAPIResponse(loginEndPoint: .moviesListAPI(apiKey: apiKey, language: language, page: page) ) { result, response, _ in
+        networkManager.getAPIResponse(loginEndPoint: .ListAPI(limit: "20", page: "1") ) { result, response, _ in
             DispatchQueue.main.async {
                 CustomLoader.instance.hideLoaderView()
                 if response?.statusCode == 200 {
+                    self.ResDataModel = result
                    self.tableViewSetup()
                     CustomLoader.instance.hideLoaderView()
 

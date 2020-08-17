@@ -9,15 +9,15 @@
 import Foundation
 
 struct ParamKeys {
-    static let api_key = "api_key"
-    static let language = "language"
+   
+    static let limit = "limit"
     static let page = "page"
 
 }
 
 public enum APIEndPoint: EndPointType {
-    case moviesListAPI(apiKey: String, language: String, page: Int)
-    case movieDetailsApi(movieID: Int, apiKey: String, language: String)
+    case ListAPI(limit: String, page: String)
+  
 
 }
 
@@ -40,26 +40,24 @@ extension APIEndPoint {
 
     var path: String {
         switch self {
-        case .moviesListAPI:
-            return "popular"
-         case let .movieDetailsApi(movieID,_,_):
-         return  "\(movieID)"
+            case  .ListAPI :
+            return "list"
+        
         }
     }
 
     var httpMethod: HTTPMethod {
         switch self {
-        case .moviesListAPI(_, _, _), .movieDetailsApi(_, _, _):
+        case .ListAPI(_, _):
         return .get
         }
     }
 
     var task: HTTPTask {
         switch self {
-        case let .moviesListAPI(api_key, language, page):
-        return .requestWithParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: [ParamKeys.api_key: api_key, ParamKeys.language: language , ParamKeys.page: page])
-        case let .movieDetailsApi(_, api_key, language):
-          return .requestWithParameters(bodyParameters: nil , bodyEncoding: .urlEncoding, urlParameters: [ParamKeys.api_key: api_key, ParamKeys.language: language])
+
+        case let .ListAPI(limit, page):
+            return .requestWithParameters(bodyParameters: nil , bodyEncoding: .urlEncoding, urlParameters: [ParamKeys.limit: limit, ParamKeys.page: page])
 
         }
     }
