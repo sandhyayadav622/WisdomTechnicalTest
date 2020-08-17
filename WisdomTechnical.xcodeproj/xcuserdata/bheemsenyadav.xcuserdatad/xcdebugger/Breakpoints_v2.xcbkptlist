@@ -19,16 +19,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "030C1EAA-FF38-46B7-A771-79841A42DCCE"
+            uuid = "26D94072-4507-4C3E-86AF-FF270C2165A0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WisdomTechnical/Utilies/MDExtenctions.swift"
+            filePath = "WisdomTechnical/Controller/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "registerNibForCellClass(_:)"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "getPopularMoviesListAPI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

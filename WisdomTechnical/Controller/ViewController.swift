@@ -25,9 +25,10 @@ class ViewController: UIViewController {
 
   var cellTypes = [FormCellType]()
       var ResDataModel: ResponseModel?
-    @IBOutlet var moviesTableView: UITableView!
+    @IBOutlet var listTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableViewSetup()
         self.getPopularMoviesListAPI()
     }
 
@@ -40,12 +41,12 @@ extension ViewController {
     private func tableViewSetup() {
         cellTypes = [.photoCell]
         for type in cellTypes {
-            moviesTableView.registerNibForCellClass(type.cellType().getClass())
+            listTableView.registerNibForCellClass(type.cellType().getClass())
         }
-        moviesTableView.rowHeight = UITableView.automaticDimension
-        moviesTableView.dataSource = self
-        moviesTableView.delegate = self
-        moviesTableView.reloadData()
+        listTableView.rowHeight = UITableView.automaticDimension
+        listTableView.dataSource = self
+        listTableView.delegate = self
+        listTableView.reloadData()
     }
 }
 

@@ -35,7 +35,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Photo Listing" id="eB5-Rz-uag"/>
                     <connections>
-                        <outlet property="moviesTableView" destination="bFd-KU-KKw" id="a3E-mW-H9g"/>
+                        <outlet property="listTableView" destination="bFd-KU-KKw" id="Uxh-Kf-nJB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
