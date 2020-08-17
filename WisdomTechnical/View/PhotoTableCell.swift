@@ -15,7 +15,7 @@ class PhotoTableCell: MDBaseInputCell {
     @IBOutlet var img: UIImageView!
     
     @IBOutlet var imgHeightConstrant: NSLayoutConstraint!
-    var index: IndexPath!
+//    var index: IndexPath!
     override func awakeFromNib() {
         super.awakeFromNib()
         bgView.backgroundColor = UIColor.white

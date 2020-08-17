@@ -24,14 +24,17 @@ case Submit
 class ViewController: UIViewController {
 
   var cellTypes = [FormCellType]()
-      var ResDataModel: [ResponseModel]?
+    
+    var ResDataModel = [ResponseModel]()
+    var currentDataSource: [ResponseModel] = []
     @IBOutlet var listTableView: UITableView!
     var limit = "20"
-    var page = "1"
+    var page = 1
+    var index = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableViewSetup()
-        self.getListAPI(limit: limit, page: page)
+        self.getListAPI(limit: limit, page: "\(page)")
     }
 
 
@@ -57,9 +60,9 @@ extension ViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-      if  ResDataModel?.count ?? 0 > 0{
+        if  currentDataSource.count > 0{
                  listTableView.restore(true)
-                 return (ResDataModel?.count)!
+            return (currentDataSource.count)
              } else {
                  listTableView.setEmptyMessage(" No Record(s) Please try again.")
                  return 0
@@ -73,29 +76,39 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PhotoTableCell.cellReuseIdentifier(), for: indexPath) as! PhotoTableCell
         // API data
-            cell.index = indexPath
-        if ResDataModel?.count ?? 0 > 0{
-            cell.title.text =  ResDataModel?[indexPath.row].author
-            cell.descriptionLbl.text = "Description \(ResDataModel?[indexPath.row].url ?? "")"
-            if ResDataModel?[indexPath.row].download_url != ""
+        index = indexPath.row
+        if currentDataSource.count > 0{
+            cell.title.text =  currentDataSource[indexPath.row].author
+            cell.descriptionLbl.text = "Description \(currentDataSource[indexPath.row].url ?? "")"
+            if currentDataSource[indexPath.row].download_url != ""
             {
-            cell.img.sd_setImage(with: URL(string: (ResDataModel?[indexPath.row].download_url)!), placeholderImage: UIImage(systemName:"logo"))
+                cell.img.sd_setImage(with: URL(string: (currentDataSource[indexPath.row].download_url)!), placeholderImage: UIImage(systemName:"logo"))
             }
-            cell.imgHeightConstrant.constant = getHeight(widthOriginal: UIScreen.main.bounds.size.width, height: (ResDataModel?[indexPath.row].height)!, width: (ResDataModel?[indexPath.row].width)!)
-            print( cell.imgHeightConstrant.constant)
+            cell.imgHeightConstrant.constant = getHeight(widthOriginal: UIScreen.main.bounds.size.width, height: (currentDataSource[indexPath.row].height)!, width: (currentDataSource[indexPath.row].width)!)
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: "photoDetails", sender: nil)
         let vc = storyboard?.instantiateViewController(withIdentifier: "DescriptionVC") as! DescriptionVC
-       var selectedImageData = [String: Any]()
-        selectedImageData["width"] =  ResDataModel?[indexPath.row].width
-        selectedImageData["height"] =  ResDataModel?[indexPath.row].height
-        selectedImageData["author"] =  ResDataModel?[indexPath.row].author
+        var selectedImageData = [String: Any]()
+        selectedImageData["width"] =  currentDataSource[indexPath.row].width
+        selectedImageData["height"] =  currentDataSource[indexPath.row].height
+        selectedImageData["author"] =  currentDataSource[indexPath.row].author
         vc.descriptionDict =  selectedImageData
         self.present(vc,animated:true)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //Bottom Refresh
+        if scrollView == listTableView{
+            if ((scrollView.contentOffset.y + scrollView.frame.size.height) >= scrollView.contentSize.height)
+            {
+                if index + 1 == currentDataSource.count{
+                self.getListAPI(limit: limit, page: "\(page + 1)")
+                }
+            }
+        }
     }
     func getHeight(widthOriginal: CGFloat, height: Int ,width: Int) -> CGFloat{
         return widthOriginal * CGFloat(height) / CGFloat(width)
@@ -113,12 +126,11 @@ extension ViewController {
             DispatchQueue.main.async {
                 CustomLoader.instance.hideLoaderView()
                 if response?.statusCode == 200 {
-                    self.ResDataModel = result
-                   self.tableViewSetup()
+                    self.ResDataModel = result!
                     CustomLoader.instance.hideLoaderView()
-
+                    self.currentDataSource.append(contentsOf: self.ResDataModel)
+                    self.tableViewSetup()
                 } else {
-                   // self.showDefaultError()
                     CustomLoader.instance.hideLoaderView()
                 }
             }
