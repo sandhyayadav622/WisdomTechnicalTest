@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreGraphics
 
 struct ResponseModel {
     let id: String?
@@ -36,4 +38,5 @@ extension ResponseModel: Decodable {
         url = try container.decodeIfPresent(String.self, forKey: .url)
         download_url = try container.decodeIfPresent(String.self, forKey: .download_url)
     }
+   
 }

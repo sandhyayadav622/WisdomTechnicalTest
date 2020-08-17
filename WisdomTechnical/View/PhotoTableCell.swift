@@ -14,6 +14,7 @@ class PhotoTableCell: MDBaseInputCell {
     @IBOutlet var descriptionLbl: UILabel!
     @IBOutlet var img: UIImageView!
     
+    @IBOutlet var imgHeightConstrant: NSLayoutConstraint!
     var index: IndexPath!
     override func awakeFromNib() {
         super.awakeFromNib()

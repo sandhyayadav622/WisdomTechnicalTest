@@ -79,15 +79,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.descriptionLbl.text = "Description \(ResDataModel?[indexPath.row].url ?? "")"
             if ResDataModel?[indexPath.row].download_url != ""
             {
-            cell.img.sd_setImage(with: URL(string: (ResDataModel?[indexPath.row].download_url)!))
+            cell.img.sd_setImage(with: URL(string: (ResDataModel?[indexPath.row].download_url)!), placeholderImage: UIImage(systemName:"logo"))
             }
+            cell.imgHeightConstrant.constant = getHeight(widthOriginal: UIScreen.main.bounds.size.width, height: (ResDataModel?[indexPath.row].height)!, width: (ResDataModel?[indexPath.row].width)!)
+            print( cell.imgHeightConstrant.constant)
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photoDetails", sender: nil)
+        //performSegue(withIdentifier: "photoDetails", sender: nil)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "DescriptionVC") as! DescriptionVC
+       var selectedImageData = [String: Any]()
+        selectedImageData["width"] =  ResDataModel?[indexPath.row].width
+        selectedImageData["height"] =  ResDataModel?[indexPath.row].height
+        selectedImageData["author"] =  ResDataModel?[indexPath.row].author
+        vc.descriptionDict =  selectedImageData
+        self.present(vc,animated:true)
     }
+    func getHeight(widthOriginal: CGFloat, height: Int ,width: Int) -> CGFloat{
+        return widthOriginal * CGFloat(height) / CGFloat(width)
+        }
 }
 
 // MARKS: API call

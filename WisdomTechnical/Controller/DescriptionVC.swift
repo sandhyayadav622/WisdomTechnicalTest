@@ -12,6 +12,9 @@ class DescriptionVC: UIViewController {
 
     @IBOutlet var descriptionLbl: UILabel!
     @IBOutlet var bgView: UIView!
+  
+    var descriptionDict: [String: Any] = [:]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
@@ -27,6 +30,11 @@ class DescriptionVC: UIViewController {
         bgView.layer.shadowOffset = CGSize.zero
         bgView.layer.shadowOpacity = 0.1
         bgView.layer.masksToBounds = false
+        if descriptionDict.count > 0{
+            descriptionLbl.text = "\(((descriptionDict as NSDictionary).value(forKey: "author")) as! String)"
+            " \n Width of images is \((((descriptionDict as NSDictionary).value(forKey: "width")) as! Int ) ?? 0)"
+           // descriptionDict.vale
+        }
     }
 
     /*
