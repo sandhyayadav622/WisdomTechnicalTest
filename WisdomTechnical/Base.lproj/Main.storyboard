@@ -10,7 +10,7 @@
         <!--Photo Listing-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WisdomTechnical" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="currentContext" id="BYZ-38-t0r" customClass="ViewController" customModule="WisdomTechnical" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,11 +36,56 @@
                     <navigationItem key="navigationItem" title="Photo Listing" id="eB5-Rz-uag"/>
                     <connections>
                         <outlet property="listTableView" destination="bFd-KU-KKw" id="Uxh-Kf-nJB"/>
+                        <segue destination="zKb-v0-CaJ" kind="presentation" identifier="photoDetails" id="kfE-dr-EOG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2842.0289855072465" y="-206.25"/>
+            <point key="canvasLocation" x="3058" y="-301"/>
+        </scene>
+        <!--Description-->
+        <scene sceneID="5Ai-DV-WAD">
+            <objects>
+                <viewController storyboardIdentifier="DescriptionVC" title="Description" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zKb-v0-CaJ" customClass="DescriptionVC" customModule="WisdomTechnical" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zek-7n-fKg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Qo-rc-5Xf">
+                                <rect key="frame" x="42" y="219" width="330" height="404"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bch-iD-Qo8">
+                                        <rect key="frame" x="127.5" y="193.5" width="75.5" height="17"/>
+                                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Bch-iD-Qo8" firstAttribute="centerY" secondItem="3Qo-rc-5Xf" secondAttribute="centerY" id="EYA-ZD-Hmb"/>
+                                    <constraint firstItem="Bch-iD-Qo8" firstAttribute="centerX" secondItem="3Qo-rc-5Xf" secondAttribute="centerX" id="jmI-wj-hKX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3Qo-rc-5Xf" firstAttribute="leading" secondItem="03b-ao-2ta" secondAttribute="leading" constant="42" id="Enz-8D-Z0l"/>
+                            <constraint firstItem="3Qo-rc-5Xf" firstAttribute="centerX" secondItem="Zek-7n-fKg" secondAttribute="centerX" id="F58-I3-nee"/>
+                            <constraint firstItem="3Qo-rc-5Xf" firstAttribute="top" secondItem="03b-ao-2ta" secondAttribute="top" constant="219" id="h8W-v3-KXg"/>
+                            <constraint firstItem="03b-ao-2ta" firstAttribute="trailing" secondItem="3Qo-rc-5Xf" secondAttribute="trailing" constant="42" id="lTe-wV-L08"/>
+                            <constraint firstItem="3Qo-rc-5Xf" firstAttribute="centerY" secondItem="Zek-7n-fKg" secondAttribute="centerY" id="pGm-AN-4ow"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="03b-ao-2ta"/>
+                    </view>
+                    <connections>
+                        <outlet property="bgView" destination="3Qo-rc-5Xf" id="EPe-Ux-XZY"/>
+                        <outlet property="descriptionLbl" destination="Bch-iD-Qo8" id="22v-yM-eD7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xzt-wC-pcv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3802.898550724638" y="-295.3125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gJg-Yt-yDR">
@@ -58,7 +103,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsl-JC-Pwa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1931.8840579710147" y="-206.25"/>
+            <point key="canvasLocation" x="2345" y="-301"/>
         </scene>
     </scenes>
 </document>

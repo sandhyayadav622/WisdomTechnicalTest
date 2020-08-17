@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 enum FormCellType {
 case photoCell
@@ -76,12 +76,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.index = indexPath
         if ResDataModel?.count ?? 0 > 0{
             cell.title.text =  ResDataModel?[indexPath.row].author
-             cell.descriptionLbl.text = "Description \(ResDataModel?[indexPath.row].url)"
+            cell.descriptionLbl.text = "Description \(ResDataModel?[indexPath.row].url ?? "")"
+            if ResDataModel?[indexPath.row].download_url != ""
+            {
+            cell.img.sd_setImage(with: URL(string: (ResDataModel?[indexPath.row].download_url)!))
+            }
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "photoDetails", sender: nil)
     }
 }
 
