@@ -26,10 +26,12 @@ class ViewController: UIViewController {
   var cellTypes = [FormCellType]()
       var ResDataModel: ResponseModel?
     @IBOutlet var listTableView: UITableView!
+    var limit = "20"
+    var page = "1"
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableViewSetup()
-        self.getPopularMoviesListAPI()
+        self.getListAPI(limit: limit, page: page)
     }
 
 
@@ -78,11 +80,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 // MARKS: API call
 
 extension ViewController {
-    func getPopularMoviesListAPI() {
+    func getListAPI(limit: String,page : String) {
         CustomLoader.instance.showLoaderView()
         let networkManager =  NetworkManager<APIEndPoint, ResponseModel >()
        
-        networkManager.getAPIResponse(loginEndPoint: .ListAPI(limit: "20", page: "1") ) { result, response, _ in
+        networkManager.getAPIResponse(loginEndPoint: .ListAPI(limit: limit, page: page) ) { result, response, _ in
             DispatchQueue.main.async {
                 CustomLoader.instance.hideLoaderView()
                 if response?.statusCode == 200 {
