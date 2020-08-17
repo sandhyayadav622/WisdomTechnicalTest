@@ -11,8 +11,8 @@ import Foundation
 struct ResponseModel {
     let id: String?
     let author: String?
-    let width:String?
-    let height: String?
+    let width:Int?
+    let height: Int?
     let url: String?
     let download_url: String?
 }
@@ -31,8 +31,8 @@ extension ResponseModel: Decodable {
        
         id = try container.decodeIfPresent(String.self, forKey: .id)
         author = try container.decodeIfPresent(String.self, forKey: .author)
-        width = try container.decodeIfPresent(String.self, forKey: .width)
-         height = try container.decodeIfPresent(String.self, forKey: .height)
+        width = try container.decodeIfPresent(Int.self, forKey: .width)
+         height = try container.decodeIfPresent(Int.self, forKey: .height)
         url = try container.decodeIfPresent(String.self, forKey: .url)
         download_url = try container.decodeIfPresent(String.self, forKey: .download_url)
     }

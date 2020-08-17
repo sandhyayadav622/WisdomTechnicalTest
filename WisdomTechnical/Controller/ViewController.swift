@@ -24,7 +24,7 @@ case Submit
 class ViewController: UIViewController {
 
   var cellTypes = [FormCellType]()
-      var ResDataModel: ResponseModel?
+      var ResDataModel: [ResponseModel]?
     @IBOutlet var listTableView: UITableView!
     var limit = "20"
     var page = "1"
@@ -57,8 +57,14 @@ extension ViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 1
-    }
+      if  ResDataModel?.count ?? 0 > 0{
+                 listTableView.restore(true)
+                 return (ResDataModel?.count)!
+             } else {
+                 listTableView.setEmptyMessage(" No Record(s) Please try again.")
+                 return 0
+             }
+         }
 
      func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -67,9 +73,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PhotoTableCell.cellReuseIdentifier(), for: indexPath) as! PhotoTableCell
         // API data
-        cell.index = indexPath
-            cell.title.text = "Title:"
-             cell.descriptionLbl.text = "Description"
+            cell.index = indexPath
+        if ResDataModel?.count ?? 0 > 0{
+            cell.title.text =  ResDataModel?[indexPath.row].author
+             cell.descriptionLbl.text = "Description \(ResDataModel?[indexPath.row].url)"
+        }
         
         return cell
     }
@@ -82,7 +90,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController {
     func getListAPI(limit: String,page : String) {
         CustomLoader.instance.showLoaderView()
-        let networkManager =  NetworkManager<APIEndPoint, ResponseModel >()
+        let networkManager =  NetworkManager<APIEndPoint, [ResponseModel] >()
        
         networkManager.getAPIResponse(loginEndPoint: .ListAPI(limit: limit, page: page) ) { result, response, _ in
             DispatchQueue.main.async {
